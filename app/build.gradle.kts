@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -8,11 +9,11 @@ android {
 
     defaultConfig {
         applicationId = "com.example.wechat"
-        minSdk = 16
+        minSdk = 19
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
+        multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -49,5 +50,11 @@ dependencies {
     //ImageView con bordes redondeados
     implementation("com.makeramen:roundedimageview:2.3.0")
 
+    //FireBase
+    implementation("com.google.firebase:firebase-messaging:23.4.1") // dependencia para FireBase de mensajeria en la nube
+    implementation("com.google.firebase:firebase-firestore:24.11.0") //dependencia para FireStore DB (Almacenamiento)
+
+    //MultiDex
+    implementation("androidx.multidex:multidex:2.0.1")
 
 }
