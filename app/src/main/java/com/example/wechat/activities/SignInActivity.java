@@ -31,6 +31,8 @@ public class SignInActivity extends AppCompatActivity {
         binding.buttonSignIn.setOnClickListener(v -> appDataToFirestore());
 
     }
+    
+
     private void appDataToFirestore() {
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         HashMap<String, Object> data = new HashMap<>();
