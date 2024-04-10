@@ -62,10 +62,10 @@ public class MainActivity extends AppCompatActivity {
                         preferenceManager.getString(Constants.KEY_USER_ID)
                 );
         documentReference.update(Constants.KEY_FCM_TOKEN, token)
-                .addOnFailureListener(e -> showToast("Unable to update token"));
+                .addOnFailureListener(e -> showToast("No se puede actualizar el token"));
     }
     private void singOut(){
-        showToast("Signing out...");
+        showToast("Cerrando sesión...");
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         DocumentReference documentReference =
                 database.collection(Constants.KEY_COLLECTION_USERS).document(
@@ -79,6 +79,6 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), SignInActivity.class));
                     finish();
                 })
-                .addOnFailureListener(e -> showToast("unable to sing out"));
+                .addOnFailureListener(e -> showToast("No fue posible cerrar sesión"));
     }
 }

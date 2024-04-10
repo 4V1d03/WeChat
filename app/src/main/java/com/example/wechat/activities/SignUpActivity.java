@@ -136,31 +136,31 @@ public class SignUpActivity extends AppCompatActivity {
     su confirmación coincidan. Devuelve true si todos los campos son válidos.*/
     private Boolean isValidSignUpDetails() {
         if (encodeImage == null) {
-            showToast("Select profile image");
+            showToast("Seleccionar imagen de perfil");
             return false;
         }
         else if(binding.inputName.getText().toString().trim().isEmpty()) {
-            showToast("Enter name");
+            showToast("Ingresar nombre");
             return false;
         }
         else if(binding.inputEmail.getText().toString().trim().isEmpty()) {
-            showToast("Enter email");
+            showToast("Ingresar correo electrónico");
             return false;
         }
         else if(!Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.getText().toString()).matches()) {
-            showToast("Enter valid email");
+            showToast("Ingresar un correo electrónico válido");
             return false;
         }
         else if(binding.inputPassword.getText().toString().trim().isEmpty()) {
-            showToast("Enter password");
+            showToast("Ingresar contraseña");
             return false;
         }
         else if(binding.inputConfirmPassword.getText().toString().trim().isEmpty()) {
-            showToast("Confirm your password");
+            showToast("Confirmar su contraseña");
             return false;
         }
         else if (!binding.inputPassword.getText().toString().equals(binding.inputConfirmPassword.getText().toString())) {
-            showToast("Password & confirm password must be same");
+            showToast("La contraseña y la contraseña de confirmación deben ser iguales");
             return false;
         }
         else {

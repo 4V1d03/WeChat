@@ -73,7 +73,7 @@ public class SignInActivity extends AppCompatActivity {
                     }
                     else {
                         loading(false);
-                        showToast("Unable to sign in");
+                        showToast("No es posible acceder");
                     }
                 });
     }
@@ -100,15 +100,15 @@ public class SignInActivity extends AppCompatActivity {
     Si algún campo no cumple con las validaciones, muestra un Toast con un mensaje apropiado y devuelve false. Si todo es valido devuelve true*/
     private Boolean isValidSignInDetails() {
         if (binding.inputEmail.getText().toString().trim().isEmpty()) {
-            showToast("Enter email");
+            showToast("Ingresar correo electrónico");
             return false;
         }
         else if (!Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.getText().toString()).matches()) {
-            showToast("Enter valid email");
+            showToast("Ingresar un correo electrónico válido");
             return false;
         }
         else if (binding.inputPassword.getText().toString().trim().isEmpty()) {
-            showToast("Enter password");
+            showToast("Ingresar contraseña");
             return false;
         }
         else {

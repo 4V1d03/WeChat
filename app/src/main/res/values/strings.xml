@@ -1,16 +1,16 @@
 <resources>
     <string name="app_name">WeChat</string>
-    <string name="welcome_back">Welcome Back!</string>
-    <string name="login_to_continue">Login to Continue</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="sign_in">Sign In</string>
-    <string name="create_new_account">Create New Account</string>
-    <string name="add_imagen">Add Imagen</string>
-    <string name="name">Name</string>
-    <string name="confrim_password">Confrim Password</string>
-    <string name="confirm_password">Confirm Password</string>
-    <string name="sign_up">Sign Up</string>
-    <string name="select_user">Select User</string>
-    <string name="type_a_message">Type a message</string>
+    <string name="welcome_back">Bienvenido a WeChat!</string>
+    <string name="login_to_continue">Iniciar sesión para continuar</string>
+    <string name="email">Correo electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="sign_in">Iniciar sesión</string>
+    <string name="create_new_account">Crear una nueva cuenta</string>
+    <string name="add_imagen">Añadir imagen</string>
+    <string name="name">Nombre</string>
+    <string name="password2">Contraseña</string>
+    <string name="confirm_password">Confirmar contraseña</string>
+    <string name="sign_up">Registrarse</string>
+    <string name="select_user">Seleccionar usuario</string>
+    <string name="type_a_message">Escribe un mensaje</string>
 </resources>
