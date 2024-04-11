@@ -74,7 +74,7 @@ public class UsersActivity extends AppCompatActivity implements UserListener {
     }
 
     private void showErrorMessage(){
-        binding.textErrorMessage.setText(String.format("s", "No user available"));
+        binding.textErrorMessage.setText(String.format("s", "Usuario no disponible"));
         binding.textErrorMessage.setVisibility(View.VISIBLE);
     }
     private void loading (Boolean isLoading){
