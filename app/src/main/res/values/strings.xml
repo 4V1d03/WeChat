@@ -13,4 +13,5 @@
     <string name="sign_up">Registrarse</string>
     <string name="select_user">Seleccionar usuario</string>
     <string name="type_a_message">Escribe un mensaje</string>
+    <string name="online">Online</string>
 </resources>
