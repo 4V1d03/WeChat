@@ -160,7 +160,6 @@ public class MainActivity extends BaseActivity implements ConversionListener {
                 })
                 .addOnFailureListener(e -> showToast("No fue posible cerrar sesión"));
     }
-
     @Override
     public void onConversionClicked(User user) {
         Intent intent = new Intent(getApplicationContext(), ChatActivity.class);

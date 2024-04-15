@@ -292,7 +292,6 @@ public class ChatActivity extends BaseActivity{
             conversionId = documentSnapshot.getId();
         }
     };
-
     @Override
     protected void onResume() {
         super.onResume();
