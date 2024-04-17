@@ -15,4 +15,6 @@
     <string name="type_a_message">Escribe un mensaje</string>
     <string name="online">Online</string>
     <string name="en_linea">En linea</string>
+    <string name="acerca">Acerca de</string>
+    <string name="desarrolladores">Desarrolladores</string>
 </resources>

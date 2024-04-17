@@ -36,11 +36,6 @@ public class SignInActivity extends AppCompatActivity {
         setListeners();
     }
 
-    //una instancia de una clase Binding contiene referencia directa a todos los views que tienen un ID que corresponde a un layout
-    /*Estableces los listeners para dos elementos de la interfaz de usuario:
-    textCreateNewAccount y buttonSignIn. El primero abre SignUpActivity cuando se hace clic en él, permitiendo al usuario registrarse.
-    El segundo llama al método isValidSignInDetails() para validar las entradas del usuario y,
-    si son válidas, procede a llamar a signIn() para intentar iniciar sesión.*/
     private void setListeners(){
         binding.textCreateNewAccount.setOnClickListener(v ->
                 startActivity(new Intent(getApplicationContext(), SignUpActivity.class)));
@@ -51,8 +46,6 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-    /* Este método realiza la operación de inicio de sesión. Muestra la barra de progreso para indicar que el proceso está en curso, y luego realiza
-    una consulta a la base de datos de Firestore buscando un usuario que coincida con el correo electrónico y la contraseña proporcionados.*/
     private void signIn() {
         loading(true);
         FirebaseFirestore database = FirebaseFirestore.getInstance();
@@ -78,8 +71,6 @@ public class SignInActivity extends AppCompatActivity {
                 });
     }
 
-    /* Controla la visibilidad de la interfaz de usuario basándose en el estado de la operación de inicio de sesión.
-    Cuando isLoading es true, ocultas el botón de inicio de sesión y muestras la barra de progreso. Cuando es false, hace lo contrario.*/
     private void loading(Boolean isLoading) {
         if(isLoading) {
             binding.buttonSignIn.setVisibility(View.INVISIBLE);
@@ -91,13 +82,10 @@ public class SignInActivity extends AppCompatActivity {
         }
     }
 
-    /*Muestra un Toast con el mensaje proporcionado. Este es un mensaje flotante breve que proporciona información al usuario, como errores o confirmaciones.*/
     private void showToast(String message){
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    /*Verifica que los campos de correo electrónico y contraseña no estén vacíos y que el correo electrónico tenga un formato válido.
-    Si algún campo no cumple con las validaciones, muestra un Toast con un mensaje apropiado y devuelve false. Si todo es valido devuelve true*/
     private Boolean isValidSignInDetails() {
         if (binding.inputEmail.getText().toString().trim().isEmpty()) {
             showToast("Ingresar correo electrónico");
@@ -115,4 +103,15 @@ public class SignInActivity extends AppCompatActivity {
             return true;
         }
     }
+
+    public void Acerca_de(View view) {
+        Intent acerca = new Intent(this, Acercade.class);
+        startActivity(acerca);
+    }
+    public void Desarrolladores(View view) {
+
+        Intent desarrolladores = new Intent(this, Desarrolladores.class);
+        startActivity(desarrolladores);
+    }
+
 }

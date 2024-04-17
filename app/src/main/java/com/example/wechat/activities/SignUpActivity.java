@@ -31,9 +31,6 @@ public class SignUpActivity extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     private String encodeImage;
 
-    /*Este es el método que se llama cuando se crea la actividad de registro. Aquí inicializas el ViewBinding,
-    estableces la vista de la actividad con setContentView(), inicias PreferenceManager para manejar las preferencias
-    de la aplicación y configuras los listeners para los eventos de la interfaz de usuario.*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +40,6 @@ public class SignUpActivity extends AppCompatActivity {
         setListeners();
     }
 
-    /*Configuras los listeners de los componentes de la UI. Cuando el usuario hace clic en textSignIn, la actividad retrocede
-    al estado anterior (probablemente al inicio de sesión). Cuando el usuario hace clic en buttonSignUp, se verifica si los
-    detalles de registro son válidos y, si es así, se procede a registrar al usuario. El listener en layoutImage lanza
-    una Intent para seleccionar una imagen de la galería.*/
     private void setListeners(){
         binding.textSignIn.setOnClickListener(v -> onBackPressed());
         binding.buttonSignUp.setOnClickListener(v -> {
@@ -61,15 +54,10 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    /*Muestra un mensaje corto al usuario utilizando un Toast, que es una pequeña ventana emergente que muestra información.*/
     private void showToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    /*Es el método que maneja el proceso de registro. Primero muestra la barra de progreso para indicar que el registro está en curso.
-    Luego, crea un nuevo usuario en la base de datos de Firestore con los detalles proporcionados. Si el registro es exitoso, guarda
-    la información relevante en PreferenceManager, inicia MainActivity y finaliza la actividad actual. Si el registro falla,
-    muestra un mensaje de error usando un Toast*/
     private void signUp() {
         loading(true);
         FirebaseFirestore database = FirebaseFirestore.getInstance();
@@ -96,8 +84,6 @@ public class SignUpActivity extends AppCompatActivity {
                 });
     }
 
-    /*Toma un objeto Bitmap, lo redimensiona a un ancho fijo manteniendo la proporción de aspecto, y luego lo comprime y
-    codifica en Base64, que es un formato de cadena que se puede guardar fácilmente en Firestore o en SharedPreferences.*/
     private String encodeImage(Bitmap bitmap) {
         int previewWidth = 150;
         int previewHeight = bitmap.getHeight() * previewWidth / bitmap.getWidth();
@@ -108,8 +94,6 @@ public class SignUpActivity extends AppCompatActivity {
         return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 
-    /*Es una instancia de ActivityResultLauncher, utilizada para recibir el resultado de la selección de imagen.
-    Cuando se selecciona una imagen correctamente, la procesa, actualiza la UI y guarda la codificación de la imagen en Base64.*/
     private final ActivityResultLauncher<Intent> pickImage = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -131,9 +115,6 @@ public class SignUpActivity extends AppCompatActivity {
             }
     );
 
-    /* Realiza la validación de los campos de entrada del formulario de registro. Comprueba que se haya seleccionado una imagen
-    de perfil, que los campos de texto no estén vacíos, que el correo electrónico sea válido y que la contraseña y
-    su confirmación coincidan. Devuelve true si todos los campos son válidos.*/
     private Boolean isValidSignUpDetails() {
         if (encodeImage == null) {
             showToast("Seleccionar imagen de perfil");
@@ -168,9 +149,6 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
-    /*Controla la visibilidad de la barra de progreso y el botón de registro en la UI basándose en el estado de isLoading.
-    Cuando isLoading es true, muestra la barra de progreso y oculta el botón de registro. Cuando es false, muestra el botón
-    de registro y oculta la barra de progreso.*/
     private void loading(Boolean isLoading) {
         if(isLoading) {
             binding.buttonSignUp.setVisibility(View.INVISIBLE);
