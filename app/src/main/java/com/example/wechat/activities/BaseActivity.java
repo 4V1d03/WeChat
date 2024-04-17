@@ -20,13 +20,11 @@ public class BaseActivity extends AppCompatActivity {
         documentReference = database.collection(Constants.KEY_COLLECTION_USERS)
                 .document(preferenceManager.getString(Constants.KEY_USER_ID));
     }
-
     @Override
     protected void onPause() {
         super.onPause();
         documentReference.update(Constants.KEY_AVAILABILITY,0);
     }
-
     @Override
     protected void onResume() {
         super.onResume();

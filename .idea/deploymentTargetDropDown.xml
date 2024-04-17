@@ -16,6 +16,18 @@
             </Target>
           </targetSelectedWithDropDown>
           <timeTargetWasSelectedWithDropDown value="2024-04-15T01:53:39.731635700Z" />
+          <multipleDevicesSelectedInDropDown value="true" />
+          <runningDeviceTargetsSelectedWithDialog>
+            <Target>
+              <type value="RUNNING_DEVICE_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="SERIAL_NUMBER" />
+                  <value value="5aee285d" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </runningDeviceTargetsSelectedWithDialog>
           <targetsSelectedWithDialog>
             <Target>
               <type value="QUICK_BOOT_TARGET" />

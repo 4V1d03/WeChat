@@ -31,7 +31,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends BaseActivity implements ConversionListener {
-
     private ActivityMainBinding binding;
     private PreferenceManager preferenceManager ;
     private List<ChatMessage> conversations;
@@ -50,14 +49,12 @@ public class MainActivity extends BaseActivity implements ConversionListener {
         setListeners();
         listenConversations();
     }
-
     private void init(){
         conversations = new ArrayList<>();
         conversationsAdapter = new RecentConversationsAdapter(conversations,this);
         binding.conversationsRecyclerView.setAdapter(conversationsAdapter);
         database = FirebaseFirestore.getInstance();
     }
-
     private void setListeners(){
 
         binding.imageSignOut.setOnClickListener(v -> singOut());
@@ -73,7 +70,6 @@ public class MainActivity extends BaseActivity implements ConversionListener {
     private void showToast(String message){
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
-
     private void listenConversations(){
         database.collection(Constants.KEY_COLLECTION_CONVERSATIONS)
                 .whereEqualTo(Constants.KEY_SENDER_ID,preferenceManager.getString(Constants.KEY_USER_ID))
@@ -132,7 +128,6 @@ public class MainActivity extends BaseActivity implements ConversionListener {
     private void getToken(){
         FirebaseMessaging.getInstance().getToken().addOnSuccessListener(this::updateToken);
     }
-
     private void updateToken(String token){
         preferenceManager.putString(Constants.KEY_FCM_TOKEN, token);
         FirebaseFirestore database = FirebaseFirestore.getInstance();

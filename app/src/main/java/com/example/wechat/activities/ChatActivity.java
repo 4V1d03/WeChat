@@ -1,15 +1,17 @@
 package com.example.wechat.activities;
 
-
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.wechat.R;
 import com.example.wechat.adapters.ChatAdapter;
 import com.example.wechat.databinding.ActivityChatBinding;
 import com.example.wechat.models.ChatMessage;
@@ -26,14 +28,12 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.checkerframework.checker.units.qual.C;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
 
 import java.util.Collections;
 import java.util.Date;
@@ -55,8 +55,7 @@ public class ChatActivity extends BaseActivity{
     private FirebaseFirestore database;
     private String conversionId = null;
     private Boolean isReceiverAvailable = false;
-
-
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,51 +77,54 @@ public class ChatActivity extends BaseActivity{
         binding.chatRecyclerView.setAdapter(chatAdapter);
         database = FirebaseFirestore.getInstance();
     }
-
-    private void sendMessage(){
-        HashMap<String, Object> message = new HashMap<>();
-        message.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
-        message.put(Constants.KEY_RECEIVER_ID,receiverUSer.id);
-        message.put(Constants.KEY_MESSAGE, binding.inputMessage.getText().toString());
-        message.put(Constants.KEY_TIMESTAMP, new Date());
-        database.collection(Constants.KEY_COLLECTION_CHAT).add(message);
-        if (conversionId != null){
-            updateConversion(binding.inputMessage.getText().toString());
-        }
-        else{
-            HashMap<String, Object> conversion = new HashMap<>();
-            conversion.put(Constants.KEY_SENDER_ID,preferenceManager.getString(Constants.KEY_USER_ID));
-            conversion.put(Constants.KEY_SENDER_NAME,preferenceManager.getString(Constants.KEY_NAME));
-            conversion.put(Constants.KEY_SENDER_IMAGE,preferenceManager.getString(Constants.KEY_IMAGE));
-            conversion.put(Constants.KEY_RECEIVER_ID,receiverUSer.id);
-            conversion.put(Constants.KEY_RECEIVER_NAME,receiverUSer.name);
-            conversion.put(Constants.KEY_RECEIVER_IMAGE,receiverUSer.image);
-            conversion.put(Constants.KEY_LAST_MESSAGE,binding.inputMessage.getText().toString());
-            conversion.put(Constants.KEY_TIMESTAMP,new Date());
-            addConversion(conversion);
-        }
-        if(!isReceiverAvailable){
-            try {
-                JSONArray tokens = new JSONArray();
-                tokens.put(receiverUSer.token);
-
-                JSONObject data = new JSONObject();
-                data.put(Constants.KEY_USER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
-                data.put(Constants.KEY_NAME, preferenceManager.getString(Constants.KEY_NAME));
-                data.put(Constants.KEY_FCM_TOKEN,preferenceManager.getString(Constants.KEY_FCM_TOKEN));
-                data.put(Constants.KEY_MESSAGE, binding.inputMessage.getText().toString());
-
-                JSONObject body = new JSONObject();
-                body.put(Constants.REMOTE_MSG_DATA,data);
-                body.put(Constants.REMOTE_MSG_REGISTRATION_IDS, tokens);
-
-                sendNotification(body.toString());
-
-            }catch (Exception exception){
-                showToast(exception.getMessage());
+    private void sendMessage() {
+        String messageText = binding.inputMessage.getText().toString().trim();
+        if (!messageText.isEmpty()) {
+            HashMap<String, Object> message = new HashMap<>();
+            message.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
+            message.put(Constants.KEY_RECEIVER_ID, receiverUSer.id);
+            message.put(Constants.KEY_MESSAGE, messageText);
+            message.put(Constants.KEY_TIMESTAMP, new Date());
+            database.collection(Constants.KEY_COLLECTION_CHAT).add(message);
+            if (conversionId != null) {
+                updateConversion(messageText);
+            } else {
+                HashMap<String, Object> conversion = new HashMap<>();
+                conversion.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
+                conversion.put(Constants.KEY_SENDER_NAME, preferenceManager.getString(Constants.KEY_NAME));
+                conversion.put(Constants.KEY_SENDER_IMAGE, preferenceManager.getString(Constants.KEY_IMAGE));
+                conversion.put(Constants.KEY_RECEIVER_ID, receiverUSer.id);
+                conversion.put(Constants.KEY_RECEIVER_NAME, receiverUSer.name);
+                conversion.put(Constants.KEY_RECEIVER_IMAGE, receiverUSer.image);
+                conversion.put(Constants.KEY_LAST_MESSAGE, messageText);
+                conversion.put(Constants.KEY_TIMESTAMP, new Date());
+                addConversion(conversion);
             }
+            if (!isReceiverAvailable) {
+                try {
+                    JSONArray tokens = new JSONArray();
+                    tokens.put(receiverUSer.token);
+
+                    JSONObject data = new JSONObject();
+                    data.put(Constants.KEY_USER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
+                    data.put(Constants.KEY_NAME, preferenceManager.getString(Constants.KEY_NAME));
+                    data.put(Constants.KEY_FCM_TOKEN, preferenceManager.getString(Constants.KEY_FCM_TOKEN));
+                    data.put(Constants.KEY_MESSAGE, messageText);
+
+                    JSONObject body = new JSONObject();
+                    body.put(Constants.REMOTE_MSG_DATA, data);
+                    body.put(Constants.REMOTE_MSG_REGISTRATION_IDS, tokens);
+
+                    sendNotification(body.toString());
+
+                } catch (Exception exception) {
+                    showToast(exception.getMessage());
+                }
+            }
+            binding.inputMessage.setText(null);
+        } else {
+            Toast.makeText(this, "¡El mensaje no puede ser null!", Toast.LENGTH_SHORT).show();
         }
-        binding.inputMessage.setText(null);
     }
 
     private void showToast(String message){
@@ -161,7 +163,6 @@ public class ChatActivity extends BaseActivity{
             }
         });
     }
-
     private void listenAvailabilityOfReceiver(){
         database.collection(Constants.KEY_COLLECTION_USERS).document(
                 receiverUSer.id
